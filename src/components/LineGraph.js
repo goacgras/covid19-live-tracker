@@ -3,6 +3,7 @@ import numeral from 'numeral';
 
 import { Line } from 'react-chartjs-2';
 
+//Settings for Line component
 const options = {
     legend: {
         display: false,
@@ -48,17 +49,17 @@ const options = {
     }
 }
 
-function LineGraph({casesType = 'cases'}) {
+function LineGraph({ casesType, ...props }) {
     const [data, setData] = useState({});
 
-    const buildChartData = (data, casesType = 'cases') => {
+    const buildChartData = (data, casesType) => {
         const chartData = [];
         let lastDataPoint;
 
         //creating charData into 
         for (let date in data.cases) {
             if (lastDataPoint) {
-                const newDataPoint = {
+                let newDataPoint = {
                     x: date,
                     //new date cases - last date cases
                     y: data[casesType][date] - lastDataPoint
@@ -76,7 +77,7 @@ function LineGraph({casesType = 'cases'}) {
                 .then(response => response.json())
                 .then(data => {
                     // console.log(data);
-                    const chartData = buildChartData(data, 'cases');
+                    let chartData = buildChartData(data, casesType);
                     console.log(chartData);
                     setData(chartData);
                 });
@@ -86,7 +87,7 @@ function LineGraph({casesType = 'cases'}) {
     }, [casesType]);
 
     return (
-        <div>
+        <div className={props.className}>
             <h1>This is graph</h1>
             {data?.length > 0 && (
                 <Line
