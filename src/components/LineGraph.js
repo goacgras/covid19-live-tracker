@@ -87,8 +87,7 @@ function LineGraph({ casesType, ...props }) {
     }, [casesType]);
 
     return (
-        <div className={props.className}>
-            <h1>This is graph</h1>
+        <div>
             {data?.length > 0 && (
                 <Line
                     options={options}
