@@ -6,16 +6,19 @@
     height: 400px;
 }
 
-.table tr {
+.table ul {
+    margin: auto;
+    padding: 0;
     display: flex;
     justify-content: space-between;
+    list-style-type: none;
 }
 
-.table td {
+.table li {
     padding: 0.5rem;
 }
 
-.table tr:nth-of-type(odd) {
+.table ul:nth-of-type(odd) {
     background-color: #f3f2f8;
 }
 

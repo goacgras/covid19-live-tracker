@@ -49,7 +49,9 @@ const options = {
     }
 }
 
-function LineGraph({ casesType, ...props }) {
+const LineGraph = ({ casesType, ...props }) => {
+    console.log('[FROM LINE GRAPH]');
+
     const [data, setData] = useState({});
 
     const buildChartData = (data, casesType) => {
@@ -78,7 +80,7 @@ function LineGraph({ casesType, ...props }) {
                 .then(data => {
                     // console.log(data);
                     let chartData = buildChartData(data, casesType);
-                    console.log(chartData);
+                    // console.log(chartData);
                     setData(chartData);
                 });
         }
@@ -106,4 +108,4 @@ function LineGraph({ casesType, ...props }) {
     )
 }
 
-export default LineGraph
+export default React.memo(LineGraph);

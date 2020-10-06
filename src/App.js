@@ -16,7 +16,7 @@ function App() {
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
   const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
-  const mapZoom = useState(3)[0];
+  const mapZoom = useState(4)[0];
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState('cases');
 
@@ -62,12 +62,11 @@ function App() {
 
         //get all data from every country
         setCountryInfo(data);
-        console.log(data);
         setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
       })
   };
 
-  console.log(countryInfo);
+  // console.log(countryInfo);
 
   return (
     // BEM naming convention
@@ -79,13 +78,16 @@ function App() {
         <div className="app__header">
           <h1>COVID-19 LIVE TRACKER</h1>
           <FormControl className="app__dropdown">
-            <Select variant="outlined" onChange={onCountryChange} value={country} >
+            <Select
+              variant="outlined"
+              onChange={onCountryChange}
+              value={country} >
 
               {/* loop through all the countries and put in dropdown */}
               <MenuItem value="worldwide">Worldwide</MenuItem>
               {
                 countries.map((country) => (
-                  <MenuItem value={country.value}>
+                  <MenuItem key={Math.random()} value={country.value}>
                     {country.name}
                   </MenuItem>
                 ))
@@ -100,14 +102,14 @@ function App() {
           <InfoBox
             isRed
             active={casesType === 'cases'}
-            onClick={e => setCasesType('cases')}
+            onClick={(e) => setCasesType('cases')}
             title="Coronavirus cases"
             total={prettyPrintStat(countryInfo.cases)}
             cases={prettyPrintStat(countryInfo.todayCases)} />
 
           <InfoBox
             active={casesType === 'recovered'}
-            onClick={e => setCasesType('recovered')}
+            onClick={(e) => setCasesType('recovered')}
             title="Recovered"
             total={prettyPrintStat(countryInfo.recovered)}
             cases={prettyPrintStat(countryInfo.todayRecovered)} />
@@ -115,7 +117,7 @@ function App() {
           <InfoBox
             isRed
             active={casesType === 'deaths'}
-            onClick={e => setCasesType('deaths')}
+            onClick={(e) => setCasesType('deaths')}
             title="Deaths"
             total={prettyPrintStat(countryInfo.deaths)}
             cases={prettyPrintStat(countryInfo.todayDeaths)} />
@@ -129,22 +131,30 @@ function App() {
           zoom={mapZoom} />
       </div>
 
-      <Card className="app__right">
+      <div className="app__right">
+        <div className="app__right__info">
+          <Card >
+            <CardContent>
+              {/* table */}
+              <h2>Live cases by country</h2>
+              <Table countries={tableData} />
+            </CardContent>
+          </Card>
+        </div>
 
-        <CardContent>
-          <div className="app__information">
+        <div className="app__right__graph" >
+          <Card>
+            <CardContent>
+              {/* graph */}
+              <h2>World wide new {casesType}</h2>
+              <LineGraph casesType={casesType} />
+            </CardContent>
+          </Card>
 
-            {/* table */}
-            <h3>Live cases by country</h3>
-            <Table countries={tableData} />
+        </div>
+      </div>
 
-            {/* graph */}
-            <h3>World wide new {casesType}</h3>
-            <LineGraph casesType={casesType} />
 
-          </div>
-        </CardContent>
-      </Card>
 
     </div>
   );

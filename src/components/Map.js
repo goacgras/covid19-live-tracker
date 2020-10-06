@@ -5,7 +5,7 @@ import { showDataOnMap } from '../util/util'
 
 import './Map.css';
 
-function Map({ countries, casesType, center, zoom }) {
+const Map = ({ countries, casesType, center, zoom }) => {
     return (
         <div className="map">
             <LeafletMap center={center} zoom={zoom}>

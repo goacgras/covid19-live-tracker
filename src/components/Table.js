@@ -4,17 +4,19 @@ import numeral from 'numeral';
 
 import './Table.css';
 
-function Table({ countries }) {
+const Table = ({ countries }) => {
     return (
         <div className="table">
             {countries.map(({ country, cases }) => (
-                <tr key={cases}>
-                    <td>{country}</td>
-                    <td><strong>{numeral(cases).format("0,0")}</strong></td>
-                </tr>
+                <ul key={Math.random()}>
+                    <li>{country}</li>
+                    <li>
+                        <strong>{numeral(cases).format("0,0")}</strong>
+                    </li>
+                </ul>
             ))}
         </div>
     )
 }
 
-export default Table
+export default React.memo(Table)

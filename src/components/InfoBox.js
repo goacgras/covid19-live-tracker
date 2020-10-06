@@ -4,6 +4,7 @@ import './Infobox.css';
 import { Card, CardContent, Typography } from '@material-ui/core';
 
 function InfoBox({ title, cases, isRed, active, total, ...props }) {
+    // console.log('[FROM INFO BOX]');
     return (
         <Card
             className={`infoBox ${active && 'infoBox--selected'} ${isRed && 'infoBox--isRed'}`}
